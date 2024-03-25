@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.okifirsyah.githubmate.presentation.view.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.okifirsyah.githubmate.presentation.view.dashboard.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_detailUserFragment"
+            app:destination="@id/detailUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.okifirsyah.githubmate.presentation.view.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_detailUserFragment"
+            app:destination="@id/detailUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailUserFragment"
+        android:name="com.okifirsyah.githubmate.presentation.view.detail_user.DetailUserFragment"
+        android:label="fragment_detail_user"
+        tools:layout="@layout/fragment_detail_user">
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_detailUserFragment_self"
+            app:destination="@id/detailUserFragment" />
+    </fragment>
+</navigation>

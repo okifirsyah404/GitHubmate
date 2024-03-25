@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.GitHubMate.AppBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="titleTextAppearance">@style/Theme.GitHubMate.Text.LabelMedium</item>
+    </style>
+
+    <style name="Theme.GitHubMate.MainTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/nunito_sans</item>
+        <item name="android:textColor">?attr/textColor</item>
+    </style>
+
+    <style name="Theme.GitHubMate.MainTextAppearance.SearchBar" parent="TextAppearance.Material3.SearchBar">
+        <item name="android:textAppearance">@style/Theme.GitHubMate.MainTextAppearance</item>
+    </style>
+
+    <style name="Theme.GitHubMate.FilledButtonTheme" parent="Widget.Material3.Button.UnelevatedButton">
+        <item name="android:fontFamily">@font/nunito_sans_semibold</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:backgroundTint">@color/primary_40</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+</resources>

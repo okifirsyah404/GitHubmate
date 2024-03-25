@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.GitHubMate" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="android:textAppearance">@style/Theme.GitHubMate.MainTextAppearance</item>
+
+        <item name="colorPrimary">@color/primary_50</item>
+        <item name="colorOnPrimary">@color/neutral_100</item>
+
+        <!-- Customize your light theme here. -->
+        <item name="textColor">@color/neutral_10</item>
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.GitHubMate" parent="Base.Theme.GitHubMate" />
+</resources>

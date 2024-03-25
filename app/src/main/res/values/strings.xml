@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">GitHub Mate</string>
+    <string name="search_github_friend">Cari Teman Github</string>
+    <string name="auth_username">okifirsyah404</string>
+    <string name="refresh">Refresh</string>
+    <string name="background">background</string>
+    <string name="avatar">avatar</string>
+    <string name="search">Search</string>
+    <string name="detail_user">Detail User</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
+</resources>
