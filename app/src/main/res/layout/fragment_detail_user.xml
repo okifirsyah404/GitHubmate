@@ -89,10 +89,22 @@
                 android:maxLines="1"
                 android:text="Work"
                 app:drawableLeftCompat="@drawable/ic_suitcase"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_location" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_favorite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_16dp"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:layout_weight="1"
+                android:text="@string/favorite"
+                android:textColorHint="@color/primary_50"
+                app:icon="@drawable/ic_favorite_outlined"
+                app:layout_constraintTop_toBottomOf="@id/tv_work" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.facebook.shimmer.ShimmerFrameLayout

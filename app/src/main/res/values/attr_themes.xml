@@ -2,4 +2,7 @@
 <resources>
     <attr name="textColor" format="reference" />
     <attr name="colorOnPrimary" format="reference" />
+    <attr name="iconColorVariant" format="reference" />
+    <attr name="logoColor" format="reference" />
+    <attr name="mainBackgroundColor" format="reference" />
 </resources>

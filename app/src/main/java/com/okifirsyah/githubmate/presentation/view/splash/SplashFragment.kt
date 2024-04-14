@@ -13,6 +13,7 @@ import com.okifirsyah.githubmate.BuildConfig
 import com.okifirsyah.githubmate.R
 import com.okifirsyah.githubmate.databinding.FragmentSplashBinding
 import com.okifirsyah.githubmate.presentation.base.BaseFragment
+import com.okifirsyah.githubmate.resource.constant.DurationConstant
 import kotlinx.coroutines.launch
 
 class SplashFragment : BaseFragment<FragmentSplashBinding>() {
@@ -35,7 +36,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
             }
         }
 
-        handler.postDelayed(navigateToDashboardRunnable, 2000)
+        handler.postDelayed(navigateToDashboardRunnable, DurationConstant.SPLASH_DURATION)
     }
 
     override fun initUI() {

@@ -48,10 +48,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
 
     abstract fun initUI()
-
-    abstract fun initProcess()
-
+    
     abstract fun initObservers()
+    protected open fun initProcess() {}
 
     protected open fun initArgument() {}
 
@@ -62,6 +61,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     protected open fun initActions() {}
 
     protected open fun showLoading(isLoading: Boolean) {}
+
+    protected open fun showError(isError: Boolean, message: String = "") {}
 
     protected open fun onRefresh() {}
 

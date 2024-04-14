@@ -4,7 +4,7 @@ import com.okifirsyah.githubmate.data.repository.GitHubUserRepositoryImpl
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single { GitHubUserRepositoryImpl(get()) }
+    single { GitHubUserRepositoryImpl(get(), get()) }
 }
 
 

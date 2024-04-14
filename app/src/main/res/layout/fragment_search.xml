@@ -36,36 +36,30 @@
         app:layout_constraintTop_toBottomOf="@id/searchBar"
         tools:listitem="@layout/item_user" />
 
-    <LinearLayout
-        android:id="@+id/layout_error"
+    <include
+        android:id="@+id/error_container"
+        layout="@layout/container_error"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchBar">
+        app:layout_constraintTop_toBottomOf="@id/searchBar" />
 
-        <TextView
-            android:id="@+id/tv_error_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center" />
-
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_retry"
-            style="@style/Theme.GitHubMate.FilledButtonTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/dimen_16dp"
-            android:text="@string/refresh"
-            android:textAllCaps="false" />
-
-    </LinearLayout>
+    <include
+        android:id="@+id/empty_container"
+        layout="@layout/container_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchBar" />
 
     <com.google.android.material.search.SearchView
         android:id="@+id/searchView"
@@ -96,22 +90,23 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
-        <LinearLayout
-            android:id="@+id/search_layout_error"
+        <include
+            android:id="@+id/error_container_search"
+            layout="@layout/container_error"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tv_search_error_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center" />
-
-        </LinearLayout>
+        <include
+            android:id="@+id/empty_container_search"
+            layout="@layout/container_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:visibility="gone" />
 
     </com.google.android.material.search.SearchView>
 

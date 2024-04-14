@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="logo_dark">#FF010409</color>
+
     <color name="primary_10">#FF0d192b</color>
     <color name="primary_20">#FF1a3256</color>
     <color name="primary_30">#FF274b82</color>

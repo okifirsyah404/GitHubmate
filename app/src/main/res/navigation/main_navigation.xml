@@ -25,6 +25,12 @@
         <action
             android:id="@+id/action_dashboardFragment_to_detailUserFragment"
             app:destination="@id/detailUserFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -45,6 +51,20 @@
             app:argType="string" />
         <action
             android:id="@+id/action_detailUserFragment_self"
+            app:destination="@id/detailUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.okifirsyah.githubmate.presentation.view.setting.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.okifirsyah.githubmate.presentation.view.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailUserFragment"
             app:destination="@id/detailUserFragment" />
     </fragment>
 </navigation>

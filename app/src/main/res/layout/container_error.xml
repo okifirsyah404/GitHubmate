@@ -15,7 +15,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_retry"
         style="@style/Theme.GitHubMate.FilledButtonTheme"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:paddingHorizontal="@dimen/dimen_16dp"

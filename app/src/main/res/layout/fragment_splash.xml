@@ -4,28 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/neutral_10"
+    android:background="?attr/mainBackgroundColor"
     tools:context=".presentation.view.splash.SplashFragment">
 
     <ImageView
         android:id="@+id/img_splash_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
         android:src="@drawable/github_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/app_name" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_app_name"
+        style="@style/Theme.GitHubMate.Text.LabelLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_24dp"
-        style="@style/Theme.GitHubMate.Text.LabelLarge"
         android:text="@string/app_name"
-        android:textColor="@color/neutral_100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_splash_logo"
@@ -33,10 +32,10 @@
 
     <TextView
         android:id="@+id/tv_splash_version"
+        style="@style/Theme.GitHubMate.Text.BodySmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_12dp"
-        android:textColor="@color/neutral_100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">GitHub Mate</string>
-    <string name="search_github_friend">Cari Teman Github</string>
+    <string name="search_github_friend">Cari Teman</string>
     <string name="auth_username">okifirsyah404</string>
     <string name="refresh">Refresh</string>
     <string name="background">background</string>
@@ -9,4 +9,13 @@
     <string name="detail_user">Detail User</string>
     <string name="following">Following</string>
     <string name="followers">Followers</string>
+    <string name="theme">Theme</string>
+    <string name="ic_theme">Theme Icon</string>
+    <string name="favorite">Favorite</string>
+    <string name="un_favorite">Hapus Dari Favorite</string>
+    <string name="setting">Setting</string>
+    <string name="empty_favorite_list">Masih Belum Ada Teman Favorit!</string>
+    <string name="empty_search_list">Pengguna Tidak Ditemukan</string>
+    <string name="empty_following_list">Pengguna Nggak Follow Siapapun</string>
+    <string name="empty_follower_list">Nggak Ada Follower</string>
 </resources>

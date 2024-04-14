@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.GitHubMate" parent="Theme.Material3.DayNight.NoActionBar">
 
@@ -9,6 +9,10 @@
 
         <!-- Customize your dark theme here. -->
         <item name="textColor">@color/neutral_100</item>
+        <item name="iconColorVariant">@color/neutral_60</item>
+        <item name="logoColor">@color/neutral_100</item>
+
+        <item name="mainBackgroundColor">@color/neutral_10</item>
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
 </resources>

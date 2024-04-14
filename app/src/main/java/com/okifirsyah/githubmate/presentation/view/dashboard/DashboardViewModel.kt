@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.okifirsyah.githubmate.data.dto.DashboardDto
 import com.okifirsyah.githubmate.data.network.ApiResponse
-import com.okifirsyah.githubmate.data.network.response.GitHubUserResponse
 import com.okifirsyah.githubmate.use_case.GitHubUserUseCaseImpl
 import kotlinx.coroutines.launch
 
@@ -23,5 +22,11 @@ class DashboardViewModel(private val useCase: GitHubUserUseCaseImpl) : ViewModel
             }
         }
     }
-    
+
+    fun setFavoriteUser(username: String, isFavorite: Boolean) {
+        viewModelScope.launch {
+            useCase.setFavoriteUser(username, isFavorite)
+        }
+    }
+
 }

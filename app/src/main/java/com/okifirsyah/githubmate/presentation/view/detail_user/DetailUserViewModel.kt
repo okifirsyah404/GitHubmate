@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.okifirsyah.githubmate.data.model.GitHubUser
 import com.okifirsyah.githubmate.data.network.ApiResponse
-import com.okifirsyah.githubmate.data.network.response.GitHubUserResponse
 import com.okifirsyah.githubmate.use_case.GitHubUserUseCaseImpl
 import kotlinx.coroutines.launch
 
 class DetailUserViewModel(private val useCase: GitHubUserUseCaseImpl) : ViewModel() {
 
-    val detailUserResult: LiveData<ApiResponse<GitHubUserResponse>> by lazy { _detailUserResultResult }
-    private val _detailUserResultResult = MutableLiveData<ApiResponse<GitHubUserResponse>>()
+    val detailUserResult: LiveData<ApiResponse<GitHubUser>> by lazy { _detailUserResultResult }
+    private val _detailUserResultResult = MutableLiveData<ApiResponse<GitHubUser>>()
 
     fun getDetailUser(username: String) {
         viewModelScope.launch {
@@ -22,16 +22,10 @@ class DetailUserViewModel(private val useCase: GitHubUserUseCaseImpl) : ViewMode
         }
     }
 
-    val userFollowingResult: LiveData<ApiResponse<List<GitHubUserResponse>>> by lazy { _userFollowingResult }
-    private val _userFollowingResult = MutableLiveData<ApiResponse<List<GitHubUserResponse>>>()
-
-    fun getUserFollowing(username: String) {
+    fun setFavoriteUser(username: String, isFavorite: Boolean) {
         viewModelScope.launch {
-            useCase.getUserFollowing(username).collect {
-                _userFollowingResult.postValue(it)
-            }
+            useCase.setFavoriteUser(username, isFavorite)
         }
     }
-
 
 }

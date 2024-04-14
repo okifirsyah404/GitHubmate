@@ -7,136 +7,16 @@
     tools:context=".presentation.view.dashboard.DashboardFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/dashboardAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:fitsSystemWindows="true">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsingToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
-
-                <ImageView
-                    android:id="@+id/iv_background"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/background"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/background"
-                    app:layout_collapseMode="parallax" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_dashboard_header"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="?attr/actionBarSize">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/iv_logo"
-                        android:layout_width="@dimen/logo_dimen"
-                        android:layout_height="@dimen/logo_dimen"
-                        android:layout_centerInParent="true"
-                        android:layout_marginTop="@dimen/dimen_16dp"
-                        android:contentDescription="@string/avatar"
-                        android:src="@drawable/github_logo"
-                        app:layout_collapseMode="parallax"
-                        app:layout_constraintBottom_toTopOf="@id/tv_author"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
-
-                    <TextView
-                        android:id="@+id/tv_author"
-                        style="@style/Theme.GitHubMate.Text.LabelMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_8dp"
-                        android:text="@string/auth_username"
-                        app:layout_constraintBottom_toTopOf="@id/btn_search"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/iv_logo" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_search"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:text="@string/search_github_friend"
-                        android:textColorHint="@color/primary_50"
-                        app:icon="@drawable/ic_search"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_author" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:expandedTitleTextAppearance="@android:color/transparent"
-                    app:layout_collapseMode="pin">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/iv_toolbar_logo"
-                            android:layout_width="@dimen/dimen_24dp"
-                            android:layout_height="@dimen/dimen_24dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerInParent="true"
-                            android:layout_marginTop="@dimen/dimen_24dp"
-                            android:layout_marginEnd="@dimen/dimen_8dp"
-                            android:contentDescription="@string/avatar"
-                            android:src="@drawable/github_logo"
-                            app:layout_collapseMode="parallax"
-                            tools:src="@tools:sample/avatars" />
-
-                        <TextView
-                            android:id="@+id/tv_toolbar_username"
-                            style="@style/Theme.GitHubMate.Text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toStartOf="@id/btn_toolbar_search"
-                            android:layout_toEndOf="@id/iv_toolbar_logo"
-                            android:text="@string/auth_username" />
-
-                        <ImageButton
-                            android:id="@+id/btn_toolbar_search"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:background="@android:color/transparent"
-                            android:contentDescription="@string/search"
-                            android:paddingHorizontal="@dimen/dimen_16dp"
-                            android:paddingVertical="@dimen/dimen_16dp"
-                            android:src="@drawable/ic_search" />
-
-                    </RelativeLayout>
-
-                </androidx.appcompat.widget.Toolbar>
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
+        <include
+            android:id="@+id/toolbar_dashboard"
+            layout="@layout/toolbar_dashboard" />
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/content"
+            android:id="@+id/main_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -153,49 +33,49 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:listitem="@layout/item_user" />
 
-                <include
-                    android:id="@+id/error_container"
-                    layout="@layout/error_container"
+                <LinearLayout
+                    android:id="@+id/layout_error"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent">
 
-                <!--                <LinearLayout-->
-                <!--                    android:id="@+id/layout_error"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:gravity="center"-->
-                <!--                    android:orientation="vertical"-->
-                <!--                    android:visibility="gone"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="parent">-->
+                    <TextView
+                        android:id="@+id/tv_error_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center" />
 
-                <!--                    <TextView-->
-                <!--                        android:id="@+id/tv_error_message"-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:textAlignment="center" />-->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_retry"
+                        style="@style/Theme.GitHubMate.FilledButtonTheme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingHorizontal="@dimen/dimen_16dp"
+                        android:text="@string/refresh"
+                        android:textAllCaps="false" />
 
-
-                <!--                    <com.google.android.material.button.MaterialButton-->
-                <!--                        android:id="@+id/btn_retry"-->
-                <!--                        style="@style/Theme.GitHubMate.FilledButtonTheme"-->
-                <!--                        android:layout_width="wrap_content"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:layout_gravity="center_horizontal"-->
-                <!--                        android:paddingHorizontal="@dimen/dimen_16dp"-->
-                <!--                        android:text="@string/refresh"-->
-                <!--                        android:textAllCaps="false" />-->
-
-                <!--                </LinearLayout>-->
+                </LinearLayout>
 
             </RelativeLayout>
 
         </androidx.core.widget.NestedScrollView>
 
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <include
+        android:id="@+id/error_container"
+        layout="@layout/container_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_dashboard"

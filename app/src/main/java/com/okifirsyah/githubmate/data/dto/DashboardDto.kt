@@ -1,8 +1,8 @@
 package com.okifirsyah.githubmate.data.dto
 
-import com.okifirsyah.githubmate.data.network.response.GitHubUserResponse
+import com.okifirsyah.githubmate.data.model.GitHubUser
 
-data class DashboardDto (
-    val authorizedUser: GitHubUserResponse? = null,
-    val users: List<GitHubUserResponse>? = null
+data class DashboardDto(
+    val authorizedUser: GitHubUser? = null,
+    val users: List<GitHubUser>? = null
 )

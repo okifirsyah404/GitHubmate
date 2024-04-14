@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.okifirsyah.githubmate.R
 import com.okifirsyah.githubmate.data.network.ApiResponse
-import com.okifirsyah.githubmate.data.network.response.GitHubUserResponse
 import com.okifirsyah.githubmate.databinding.FragmentFollowerBinding
 import com.okifirsyah.githubmate.presentation.adapter.DetailPagerAdapter
 import com.okifirsyah.githubmate.presentation.adapter.UserFollowerAdapter
 import com.okifirsyah.githubmate.presentation.base.BaseFragment
+import com.okifirsyah.githubmate.presentation.decorator.ListRecyclerViewItemDivider
 import com.okifirsyah.githubmate.presentation.view.detail_user.DetailUserFragmentDirections
 import com.okifirsyah.githubmate.presentation.view.detail_user.DetailUserViewModel
 import com.okifirsyah.githubmate.utils.extension.gone
@@ -23,7 +24,7 @@ class FollowerFragment : BaseFragment<FragmentFollowerBinding>() {
     private val viewModel: FollowerViewModel by viewModel<FollowerViewModel>()
     private val parentViewModel: DetailUserViewModel by activityViewModel<DetailUserViewModel>()
 
-    private val usersAdapter: UserFollowerAdapter by lazy {
+    private val userAdapter: UserFollowerAdapter by lazy {
         UserFollowerAdapter(
             onClick = {
                 val navDirection = DetailUserFragmentDirections.actionDetailUserFragmentSelf(it)
@@ -52,13 +53,26 @@ class FollowerFragment : BaseFragment<FragmentFollowerBinding>() {
     }
 
     override fun initUI() {
-
         binding.rvUser.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = usersAdapter
+            adapter = userAdapter
+
+            addItemDecoration(
+                ListRecyclerViewItemDivider(
+                    resources.getDimension(R.dimen.dimen_8dp).toInt(),
+                    resources.getDimension(R.dimen.dimen_16dp).toInt()
+                )
+            )
         }
 
+    }
+
+    override fun initActions() {
+        binding.layoutError.btnRetry.setOnClickListener {
+            viewModel.getUserFollower(username)
+            parentViewModel.getDetailUser(username)
+        }
     }
 
     override fun initProcess() {
@@ -66,27 +80,37 @@ class FollowerFragment : BaseFragment<FragmentFollowerBinding>() {
     }
 
     override fun initObservers() {
-        viewModel.userFollowerResult.observe(viewLifecycleOwner) { res ->
-            when (res) {
+        viewModel.userFollowerResult.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is ApiResponse.Loading -> {
                     showLoading(true)
                     showError(false)
+                    showEmpty(false)
                 }
 
-                is ApiResponse.Success<List<GitHubUserResponse>> -> {
-                    usersAdapter.setItems(ArrayList(res.data))
+                is ApiResponse.Success -> {
+                    userAdapter.setItems(ArrayList(response.data))
                     showLoading(false)
+                    showEmpty(false)
                     showError(false)
                 }
 
                 is ApiResponse.Error -> {
                     showLoading(false)
-                    showError(true, res.errorMessage)
+                    showEmpty(false)
+                    showError(true, response.errorMessage)
+                }
+
+                is ApiResponse.Empty -> {
+                    showLoading(false)
+                    showError(false)
+                    showEmpty(true)
                 }
 
                 else -> {
                     showLoading(false)
                     showError(false)
+                    showEmpty(false)
                 }
 
             }
@@ -107,7 +131,7 @@ class FollowerFragment : BaseFragment<FragmentFollowerBinding>() {
         }
     }
 
-    private fun showError(isError: Boolean, message: String = "") {
+    override fun showError(isError: Boolean, message: String) {
         if (isError) {
             binding.apply {
                 layoutError.tvErrorMessage.text = message
@@ -122,10 +146,19 @@ class FollowerFragment : BaseFragment<FragmentFollowerBinding>() {
         }
     }
 
-    override fun initActions() {
-        binding.layoutError.btnRetry.setOnClickListener {
-            viewModel.getUserFollower(username)
-            parentViewModel.getDetailUser(username)
+
+    private fun showEmpty(isEmpty: Boolean) {
+        if (isEmpty) {
+            binding.apply {
+                layoutEmpty.tvEmptyMessage.text = getString(R.string.empty_follower_list)
+                rvUser.gone()
+                layoutEmpty.root.show()
+            }
+        } else {
+            binding.apply {
+                rvUser.show()
+                layoutEmpty.root.gone()
+            }
         }
     }
 

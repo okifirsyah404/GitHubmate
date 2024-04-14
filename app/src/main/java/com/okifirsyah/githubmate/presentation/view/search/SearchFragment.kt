@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.okifirsyah.githubmate.R
+import com.okifirsyah.githubmate.data.model.GitHubUser
 import com.okifirsyah.githubmate.data.network.ApiResponse
 import com.okifirsyah.githubmate.databinding.FragmentSearchBinding
-import com.okifirsyah.githubmate.presentation.adapter.GitHubUsersAdapter
+import com.okifirsyah.githubmate.presentation.adapter.SearchUserAdapter
 import com.okifirsyah.githubmate.presentation.base.BaseFragment
 import com.okifirsyah.githubmate.presentation.decorator.ListRecyclerViewItemDivider
+import com.okifirsyah.githubmate.resource.constant.DurationConstant
 import com.okifirsyah.githubmate.utils.extension.gone
 import com.okifirsyah.githubmate.utils.extension.show
 import kotlinx.coroutines.CoroutineScope
@@ -22,23 +24,15 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     private val viewModel: SearchViewModel by inject()
-    private val usersAdapter: GitHubUsersAdapter by lazy {
-        GitHubUsersAdapter(
-            onClick = {
-
-                if (searchTask != null) {
-                    searchTask?.cancel()
-                }
-
-                val navDirection =
-                    SearchFragmentDirections.actionSearchFragmentToDetailUserFragment(it)
-                findNavController().navigate(navDirection)
-            }
-        )
+    private val usersAdapter: SearchUserAdapter by lazy {
+        SearchUserAdapter {
+            navigateToDetailUser(it)
+        }
     }
 
 
@@ -67,13 +61,24 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                 adapter = usersAdapter
+                addItemDecoration(
+                    ListRecyclerViewItemDivider(
+                        resources.getDimension(R.dimen.dimen_8dp).toInt(),
+                        resources.getDimension(R.dimen.dimen_16dp).toInt()
+                    )
+                )
             }
 
             rvSearchUser.apply {
                 layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                 adapter = usersAdapter
-                addItemDecoration(ListRecyclerViewItemDivider(16, 16))
+                addItemDecoration(
+                    ListRecyclerViewItemDivider(
+                        resources.getDimension(R.dimen.dimen_8dp).toInt(),
+                        resources.getDimension(R.dimen.dimen_16dp).toInt()
+                    )
+                )
             }
 
             searchView.apply {
@@ -97,6 +102,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
             editText.addTextChangedListener(object : TextWatcher {
 
+                var text = ""
+
                 override fun beforeTextChanged(
                     s: CharSequence?,
                     start: Int,
@@ -106,86 +113,60 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                     searchTask?.cancel()
                 }
 
-                override fun onTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    before: Int,
-                    count: Int
-                ) {
-                    // do nothing
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    text = s.toString()
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    val text = s.toString()
-
                     searchTask = CoroutineScope(Dispatchers.Main).launch {
-                        delay(1000)
+                        delay(DurationConstant.SPLASH_ANIMATE_DURATION)
 
+                        usersAdapter.clearItems()
 
                         if (text.isNotEmpty()) {
                             binding.searchBar.setText(text)
                             viewModel.searchUser(text)
-                        } else {
-                            usersAdapter.clearItems()
                         }
+
                     }
 
                 }
             })
         }
-        binding.apply {
-            btnRetry.setOnClickListener {
-                viewModel.searchUser(searchBar.text.toString())
-            }
-        }
-    }
-
-    override fun initProcess() {
-
     }
 
     override fun initObservers() {
         viewModel.gitHubUserSearchResult.observe(viewLifecycleOwner) { response ->
             when (response) {
+                is ApiResponse.Loading -> {
+                    showLoading(true)
+                    showError(false)
+                    showEmpty(false)
+                }
+
                 is ApiResponse.Success -> {
                     showLoading(false)
-                    usersAdapter.setItems(ArrayList(response.data))
-                    binding.apply {
-                        layoutError.gone()
-                        searchLayoutError.gone()
-                        rvSearchUser.show()
-                        rvUser.show()
-                    }
+                    showError(false)
+                    showEmpty(false)
+                    onSuccessBind(ArrayList(response.data))
                 }
 
                 is ApiResponse.Error -> {
                     showLoading(false)
-                    binding.apply {
-
-                        tvErrorMessage.text = response.errorMessage
-                        tvSearchErrorMessage.text = response.errorMessage
-
-                        layoutError.show()
-                        searchLayoutError.show()
-                        rvSearchUser.gone()
-                        rvUser.gone()
-                    }
+                    showEmpty(false)
+                    showError(true, response.errorMessage)
                 }
 
-                is ApiResponse.Loading -> {
-                    showLoading(true)
-                    binding.apply {
-                        layoutError.gone()
-                        searchLayoutError.gone()
-                    }
+                is ApiResponse.Empty -> {
+                    showLoading(false)
+                    showError(false)
+                    showEmpty(true)
                 }
 
                 else -> {
                     showLoading(false)
-                    binding.apply {
-                        layoutError.gone()
-                        searchLayoutError.gone()
-                    }
+                    showError(false)
+                    showEmpty(false)
                 }
             }
         }
@@ -217,6 +198,77 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             }
         }
     }
+
+    override fun showError(isError: Boolean, message: String) {
+        if (isError) {
+            binding.apply {
+                errorContainer.tvErrorMessage.text = message
+                errorContainerSearch.tvErrorMessage.text = message
+
+                errorContainerSearch.root.show()
+                errorContainer.root.show()
+
+                errorContainer.btnRetry.setOnClickListener {
+                    viewModel.searchUser(searchBar.text.toString())
+                }
+
+                errorContainerSearch.btnRetry.setOnClickListener {
+                    viewModel.searchUser(searchBar.text.toString())
+                }
+
+                rvSearchUser.gone()
+                rvUser.gone()
+            }
+        } else {
+            binding.apply {
+                errorContainer.root.gone()
+                errorContainerSearch.root.gone()
+            }
+        }
+    }
+
+    private fun onSuccessBind(data: ArrayList<GitHubUser>) {
+
+        Timber.tag("SearchFragment").d("data $data")
+
+        if (data.isEmpty()) {
+            showEmpty(true)
+            return
+        }
+
+        usersAdapter.setItems(data)
+        binding.apply {
+            rvSearchUser.show()
+            rvUser.show()
+        }
+    }
+
+    private fun showEmpty(isEmpty: Boolean) {
+        binding.apply {
+            if (isEmpty) {
+                binding.rvUser.gone()
+                emptyContainerSearch.tvEmptyMessage.text = getString(R.string.empty_search_list)
+                emptyContainerSearch.root.show()
+                emptyContainer.tvEmptyMessage.text = getString(R.string.empty_search_list)
+                emptyContainer.root.show()
+            } else {
+                binding.rvUser.show()
+                emptyContainerSearch.root.gone()
+                emptyContainer.root.gone()
+            }
+        }
+    }
+
+    private fun navigateToDetailUser(username: String) {
+        if (searchTask != null) {
+            searchTask?.cancel()
+        }
+
+        val navDirection =
+            SearchFragmentDirections.actionSearchFragmentToDetailUserFragment(username)
+        findNavController().navigate(navDirection)
+    }
+
 
     override fun onClose() {
         super.onClose()

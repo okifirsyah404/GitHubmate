@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dimen_4dp"
     android:elevation="5dp"
     app:cardCornerRadius="@dimen/dimen_8dp">
 
@@ -33,6 +32,18 @@
             app:layout_constraintStart_toEndOf="@+id/civ_user"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Person" />
+
+        <ImageButton
+            android:id="@+id/btn_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/favorite"
+            android:padding="@dimen/dimen_12dp"
+            android:src="@drawable/ic_favorite_outlined"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

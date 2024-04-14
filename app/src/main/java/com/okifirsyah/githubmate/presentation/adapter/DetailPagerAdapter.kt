@@ -13,7 +13,6 @@ class DetailPagerAdapter(activity: FragmentActivity, private val username: Strin
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
-        var fragment: Fragment? = null
         val args = Bundle()
 
         val followingFragment = FollowingFragment()
@@ -25,8 +24,8 @@ class DetailPagerAdapter(activity: FragmentActivity, private val username: Strin
         followerFragment.arguments = args
 
         return when (position) {
-            0 -> followingFragment
-            else -> followerFragment
+            0 -> followerFragment
+            else -> followingFragment
         }
     }
 

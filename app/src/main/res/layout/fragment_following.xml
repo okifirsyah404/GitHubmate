@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/dimen_12dp"
-        android:paddingVertical="@dimen/dimen_8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_user" />
@@ -31,9 +30,19 @@
 
     <include
         android:id="@+id/layout_error"
-        layout="@layout/error_container"
+        layout="@layout/container_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/layout_empty"
+        layout="@layout/container_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
         android:layout_marginTop="@dimen/dimen_16dp"
         android:visibility="gone" />
 
